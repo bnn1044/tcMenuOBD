@@ -1,16 +1,53 @@
 #include "tcMenuOBD_menu.h"
+#include<Wire.h>
+
+#include "ELM327.h"
+#include "OBD_PID.h"
+
+#define OLED_WIDTH 128
+#define OLED_HEIGHT 64
+
+int counter;
+//U8G2_SH1106_128X64_NONAME_F_HW_I2C gfx(U8G2_R0, /* reset=*/ U8X8_PIN_NONE, /* clock=*/ PB6, /* data=*/ PB7);
+
+U8G2_SH1106_128X64_NONAME_F_HW_I2C gfx(U8G2_R0, /* reset=*/ U8X8_PIN_NONE, /* clock=*/ PB6, /* data=*/ PB7);
+
+void myDisplayFunction();
 
 void setup() {
+   /* for(int i = 0; i<10;i++){
+        menuSupportedPID = PID_List[i].name;
+    }*/
+    Wire.begin();
+    Serial.begin(115200);
+    gfx.begin();
     setupMenu();
+    renderer.setResetCallback([] {
+        counter = 0;
+        renderer.takeOverDisplay(myDisplayFunction);
+    });
+    renderer.setResetIntervalTimeSeconds(5);
 
 }
-
 void loop() {
     taskManager.runLoop();
-
 }
-
-
+// this function will be called when the menu becomes inactive.
+/*void onMenuBeingReset() {
+    // for example in here we could take over the display when the menu is inactive.
+    renderer.takeOverDisplay(myDisplayFunction);
+}
+// This will be called frequently by the renderer class
+// here we give control back when the button is clicked.
+void myDisplayFunction() {
+    // draw something..
+   gfx.clearBuffer();
+   gfx.setFont(u8g2_font_pxplustandynewtv_8f);
+   gfx.setCursor(1,10);
+   gfx.print("display something when the menu timeout");
+   gfx.sendBuffer();
+}
+*/
 // see tcMenu list documentation on thecoderscorner.com
 int CALLBACK_FUNCTION fnNewSubMenuSupportedPIDLISTRtCall(RuntimeMenuItem* item, uint8_t row, RenderFnMode mode, char* buffer, int bufferSize) {
    switch(mode) {
@@ -30,4 +67,49 @@ int CALLBACK_FUNCTION fnNewSubMenuSupportedPIDLISTRtCall(RuntimeMenuItem* item, 
     default: return false;
     }
 }
-
+//
+// this is the function called by the renderer every 1/5 second once the display is
+// taken over, we pass this function to takeOverDisplay below.
+//
+void myDisplayFunction(unsigned int encoderValue, RenderPressMode clicked) {
+    // we initialise the display on the first call.
+    if(counter == 0) {
+        displayMsg("OK button");
+    }
+    // We are told when the button is pressed in by the boolean parameter.
+    // When the button is clicked, we give back to the menu..
+    if(clicked) {
+        renderer.giveBackDisplay();
+        counter = 0;
+    }
+    else {
+        char buffer[5];
+       // otherwise update the counter.
+       /* lcd.setCursor(0, 2);
+        ltoaClrBuff(buffer, ++counter, 4, ' ', sizeof(buffer));
+        lcd.print(buffer);
+        lcd.setCursor(12, 2);
+        ltoaClrBuff(buffer, encoderValue, 4, '0', sizeof(buffer));
+        lcd.print(buffer);*/
+    }
+}
+void displayMsg(char *msg){
+   gfx.clearBuffer();
+   gfx.setFont(u8g2_font_pxplustandynewtv_8f);
+   gfx.setCursor(0,12);
+   gfx.print(msg);
+   gfx.sendBuffer();
+}
+//
+// We have an option on the menu to take over the display, this function is called when that
+// option is chosen.
+//
+void CALLBACK_FUNCTION onTakeOverDisplay(int /*id*/) {
+    // in order to take over rendering onto the display we just request the display
+    // at which point tcMenu will stop rendering until the display is "given back".
+    // Don't forget that LiquidCrystalIO uses task manager and things can be happening
+    // in the background. Always ensure all operations with the LCD occur on the rendering
+    // call back.
+    counter = 0;
+    renderer.takeOverDisplay(myDisplayFunction);
+}

@@ -1,0 +1,11 @@
+{
+  "additionalFiles": "..,..,..,..,..,..,..",
+  "builtInLibrariesFolders": "C:\\Program Files (x86)\\Arduino\\libraries",
+  "builtInToolsFolders": "C:\\Program Files (x86)\\Arduino\\tools-builder,C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr,C:\\Users\\Cheng\\AppData\\Local\\Arduino15\\packages",
+  "customBuildProperties": "build.path=c:\\ARMTC\\code\\tcMenuOBD\\BUILD,build.warn_data_percentage=75,runtime.tools.xpack-arm-none-eabi-gcc.path=C:\\Users\\Cheng\\AppData\\Local\\Arduino15\\packages\\STM32\\tools\\xpack-arm-none-eabi-gcc\\9.2.1-1.1,runtime.tools.xpack-arm-none-eabi-gcc-9.2.1-1.1.path=C:\\Users\\Cheng\\AppData\\Local\\Arduino15\\packages\\STM32\\tools\\xpack-arm-none-eabi-gcc\\9.2.1-1.1,runtime.tools.STM32Tools.path=C:\\Users\\Cheng\\AppData\\Local\\Arduino15\\packages\\STM32\\tools\\STM32Tools\\1.4.0,runtime.tools.STM32Tools-1.4.0.path=C:\\Users\\Cheng\\AppData\\Local\\Arduino15\\packages\\STM32\\tools\\STM32Tools\\1.4.0,runtime.tools.CMSIS.path=C:\\Users\\Cheng\\AppData\\Local\\Arduino15\\packages\\STM32\\tools\\CMSIS\\5.5.1,runtime.tools.CMSIS-5.5.1.path=C:\\Users\\Cheng\\AppData\\Local\\Arduino15\\packages\\STM32\\tools\\CMSIS\\5.5.1",
+  "fqbn": "STM32:stm32:GenF1:pnum=Generic_F103CB,upload_method=dfuoMethod,xserial=generic,usb=CDCgen,xusb=FS,opt=osstd,rtlib=nano",
+  "hardwareFolders": "C:\\Program Files (x86)\\Arduino\\hardware,C:\\Users\\Cheng\\AppData\\Local\\Arduino15\\packages,C:\\Users\\Cheng\\Documents\\Arduino\\hardware",
+  "otherLibrariesFolders": "C:\\Users\\Cheng\\Documents\\Arduino\\libraries",
+  "runtime.ide.version": "10812",
+  "sketchLocation": "c:\\ARMTC\\code\\tcMenuOBD\\tcMenuOBD.ino"
+}

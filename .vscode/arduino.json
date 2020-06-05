@@ -1,0 +1,7 @@
+{
+    "board": "STM32:stm32:GenF1",
+    "configuration": "pnum=Generic_F103CB,upload_method=dfuoMethod,xserial=generic,usb=CDCgen,xusb=FS,opt=osstd,rtlib=nano",
+    "port": "COM16",
+    "sketch": "tcMenuOBD.ino",
+    "output": "./BUILD"
+}
